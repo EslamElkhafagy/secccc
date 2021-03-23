@@ -5,9 +5,32 @@ import java.util.Scanner;
  
 public class Playfair implements PlayfairService, EncryptionService
 {
-    private String KeyWord = new String();
-    private String Key = new String();
-    private char   matrix_arr[][] = new char[5][5];
+     String KeyWord = new String();
+     String Key = new String();
+     char   matrix_arr[][] = new char[5][5];
+
+
+    @Override
+    public void startAlgorithm() {
+        System.out.println("WEEEEEEEEEEEEElcome");
+    }
+
+    @Override
+    public void runImplimentation() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter a keyword:");
+        String keyword = sc.next();
+        setKey(keyword);
+        KeyGenerator();
+        System.out.println("Enter word to encrypt:");
+        String key_input = sc.next();
+        System.out.println("Encryption: " + encryptMessage(key_input));
+    }
+
+    @Override
+    public void endAlgorithm() {
+        System.out.println("BYyyyyyyyyyyyyyyyyye");
+    }
 
     @Override
     public void setKey(String key)
@@ -197,25 +220,4 @@ public class Playfair implements PlayfairService, EncryptionService
         new Playfair().runImplimentation();
     }
 
-    @Override
-    public void startAlgorithm() {
-        System.out.println("WEEEEEEEEEEEEElcome");
-    }
-
-    @Override
-    public void runImplimentation() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter a keyword:");
-        String keyword = sc.next();
-        setKey(keyword);
-        KeyGenerator();
-        System.out.println("Enter word to encrypt:");
-        String key_input = sc.next();
-        System.out.println("Encryption: " + encryptMessage(key_input));
-    }
-
-    @Override
-    public void endAlgorithm() {
-        System.out.println("BYyyyyyyyyyyyyyyyyye");
-    }
 }

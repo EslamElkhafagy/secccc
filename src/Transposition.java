@@ -1,39 +1,51 @@
-// Class
-// For transposition cipher 
-public class Transposition {
+import service.EncryptionService;
+import service.TranspositionService;
 
-    // Member variables of this class 
-    public static String selectedKey;
-    public static char sortedKey[];
-    public static int sortedKeyPos[];
+public class Transposition implements TranspositionService, EncryptionService {
 
-    // Constructor 1 of this class 
-    // Default constructor defining the default key 
+     static String selectedKey;
+     static char sortedKey[];
+     static int sortedKeyPos[];
+
+    @Override
+    public void startAlgorithm() {
+
+    }
+
+    @Override
+    public void runImplimentation() {
+
+
+        System.out.println("Cipher Text : "
+                + doEncryption("Hello World"));
+    }
+
+    @Override
+    public void endAlgorithm() {
+
+    }
+
+
     public Transposition() {
         selectedKey = "Hello";
         sortedKeyPos = new int[selectedKey.length()];
         sortedKey = selectedKey.toCharArray();
     }
 
-    // Constructor 2 of this class 
-    // Parameterized constructor defining the custom key 
+
     public Transposition(String Key) {
         selectedKey = Key;
         sortedKeyPos = new int[selectedKey.length()];
         sortedKey = selectedKey.toCharArray();
     }
 
-    // Method 1 - doProcessOnKey() 
-    // To reorder data do the sorting on selected key 
-    public static void doProcessOnKey() {
-        // Find position of each character in selected key 
-        // and arranging it in alphabetical order 
+    @Override
+    public void doProcessOnKey() {
+
         int min, i, j;
         char orginalKey[] = selectedKey.toCharArray();
         char temp;
 
-        // Step 1: Sorting the array of selected key 
-        // using nested for loops 
         for (i = 0; i < selectedKey.length(); i++) {
             min = i;
             for (j = i; j < selectedKey.length(); j++) {
@@ -49,9 +61,7 @@ public class Transposition {
             }
         }
 
-        // Step 2: Filling the position of array 
-        // according to alphabetical order 
-        // using nested for loops 
+
         for (i = 0; i < selectedKey.length(); i++) {
             for (j = 0; j < selectedKey.length(); j++) {
                 if (orginalKey[i] == sortedKey[j]) {
@@ -61,16 +71,14 @@ public class Transposition {
         }
     }
 
-    // Method 2 - doEncryption() 
-    // To encrypt the targeted string 
-    public static String doEncryption(String plainText) {
+    @Override
+    public  String doEncryption(String plainText) {
         int min, i, j;
         char orginalKey[] = selectedKey.toCharArray();
         char temp;
         doProcessOnKey();
 
-        // Step 3: Generating the encrypted message by 
-        // doing encryption using Transpotion Cipher 
+
         int row = plainText.length() / selectedKey.length();
         int extrabit
                 = plainText.length() % selectedKey.length();
@@ -92,10 +100,6 @@ public class Transposition {
                 }
                 pmat[row][coltemp] = plainText.charAt(i);
             } else {
-
-                // Padding can be added between two 
-                // consecutive alphabets or a group of 
-                // alphabets of the resultant cipher text 
                 pmat[row][coltemp] = '-';
             }
         }
@@ -118,9 +122,8 @@ public class Transposition {
         return (new String(p1));
     }
 
-    // Method 3 - doEncryption() 
-    // To decrypt the targeted string 
-    public static String doDecryption(String s) {
+    @Override
+    public String doDecryption(String s) {
         int min, i, j, k;
         char key[] = selectedKey.toCharArray();
         char encry[] = s.toCharArray();
@@ -128,7 +131,6 @@ public class Transposition {
 
         doProcessOnKey();
 
-        // Step 4: Generating a plain message 
         int row = s.length();
         selectedKey.length();
         char pmat[][]
@@ -148,8 +150,6 @@ public class Transposition {
             }
         }
 
-        // Step 5: Storing matrix character in 
-        // to a single string 
         char p1[] = new char[row * selectedKey.length()];
 
         k = 0;
@@ -165,17 +165,11 @@ public class Transposition {
         return (new String(p1));
     }
 
-    @SuppressWarnings("static-access")
 
-    // Method 4 - main() 
-    // Main driver method 
     public static void main(String[] args) {
-        // Creating object of class in main method 
-        Transposition tc = new Transposition();
+        new Transposition().runImplimentation();
 
-        // Printing the ciphere text 
-        // Custom input - Hello Geek 
-        System.out.println("Cipher Text : "
-                + tc.doEncryption("Hello World"));
     }
+
+
 }
